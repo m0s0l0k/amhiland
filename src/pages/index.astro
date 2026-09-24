@@ -1,13 +1,594 @@
 ---
+import AtlasArtwork from '../components/visual/AtlasArtwork.astro';
+import DiscoveryTile from '../components/ui/DiscoveryTile.astro';
+import NewsPreview from '../components/content/NewsPreview.astro';
+import SectionKicker from '../components/ui/SectionKicker.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
   title="Accueil"
-  description="Bienvenue sur Amhiland, un projet en construction autour d'une communauté et de ses passions."
+  description="Actualités, quiz, tests et découvertes autour des anime et manga sur Amhiland."
 >
-  <p class="eyebrow">Bienvenue</p>
-  <h1>Amhiland se prépare.</h1>
-  <p>Un espace pour la communauté Amhinataros et les projets qui grandiront avec elle.</p>
-  <p>Le site est en cours de construction. Une section consacrée aux actualités Hunter × Hunter pourra y prendre place plus tard.</p>
+  <div class="home-page">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-container">
+        <div class="hero-meta">
+          <SectionKicker index="01" label="Un atlas pour les curieux" />
+          <span class="hero-coordinates">ANIME <span>·</span> MANGA <span>·</span> IMAGINAIRE</span>
+        </div>
+
+        <div class="hero-main">
+          <div class="hero-heading">
+            <h1 id="hero-title"><span>AMHI</span><span>LAND<span class="hero-period">.</span></span></h1>
+            <div class="hero-intro">
+              <p>Actualités, quiz, tests et découvertes autour des anime &amp; manga.</p>
+              <a class="text-link" href="#rubriques">Explorer Amhiland <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+          <AtlasArtwork />
+        </div>
+
+        <div class="hero-baseline">
+          <p>Des actualités, quiz et tests sur vos univers préférés.</p>
+          <a class="scroll-cue" href="#rubriques"><span>Découvrir</span><span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="rubriques" class="explore-section" aria-labelledby="explore-title">
+      <div class="container">
+        <div class="section-heading">
+          <SectionKicker index="02" label="Les essentiels" />
+          <h2 id="explore-title">À lire, à jouer,<br /><em>à découvrir.</em></h2>
+          <p>Actualités, quiz et tests pour retrouver les univers anime &amp; manga que vous aimez.</p>
+        </div>
+
+        <div class="discovery-grid">
+          <DiscoveryTile
+            index="01"
+            label="Les dernières nouvelles"
+            title="Actualités"
+            description="Les annonces et nouveautés des séries anime & manga."
+            variant="news"
+            href="#actualites"
+          />
+          <DiscoveryTile
+            index="02"
+            label="À vous de jouer"
+            title="Quiz"
+            description="Des quiz pour mettre vos connaissances à l’épreuve."
+            variant="quiz"
+            id="quiz"
+          />
+          <DiscoveryTile
+            index="03"
+            label="Quel personnage êtes-vous ?"
+            title="Tests"
+            description="Des tests de personnalité inspirés de vos univers favoris."
+            variant="test"
+            id="tests"
+          />
+        </div>
+        <p class="secondary-topic"><span>En complément</span><strong>Analyses</strong><span>Lectures et détails à découvrir prochainement.</span></p>
+      </div>
+    </section>
+
+    <section id="actualites" class="news-section" aria-labelledby="news-title">
+      <div class="container">
+        <div class="news-heading">
+          <div>
+            <SectionKicker index="03" label="Actualités anime & manga" />
+            <h2 id="news-title">Le fil des<br /><em>univers.</em></h2>
+          </div>
+          <p>Les annonces Hunter × Hunter, JoJo et d’autres séries trouveront ici leur place.</p>
+        </div>
+        <p class="news-placeholder-note">Aperçus — contenu à venir</p>
+        <div class="article-grid">
+          <NewsPreview index="01" category="Hunter × Hunter" dateLabel="Date à venir" title="Actualités Hunter × Hunter" summary="Les nouvelles de la série apparaîtront ici." illustration="landscape" />
+          <NewsPreview index="02" category="JoJo’s Bizarre Adventure" dateLabel="Date à venir" title="Actualités JoJo" summary="Les informations et annonces de la série prendront place ici." illustration="ornament" />
+          <NewsPreview index="03" category="Autres univers" dateLabel="Date à venir" title="Autres anime & manga" summary="Les actualités d’autres séries auront aussi leur place ici." illustration="constellation" />
+        </div>
+      </div>
+    </section>
+
+    <section id="univers" class="closing-section" aria-labelledby="closing-title">
+      <div class="container closing-layout">
+        <span class="closing-orbit" aria-hidden="true"></span>
+        <SectionKicker index="04" label="Anime & manga" />
+        <h2 id="closing-title">Des univers à découvrir.<br /><em>Des histoires à retenir.</em></h2>
+        <a class="round-link" href="/a-propos/" aria-label="En savoir plus sur Amhiland">
+          <span aria-hidden="true">↗</span>
+        </a>
+        <p>Bienvenue sur Amhiland.<br />Explorez les histoires qui vous passionnent.</p>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .hero {
+    overflow: hidden;
+    padding-block: clamp(2.2rem, 5vw, 4.5rem) 1.6rem;
+  }
+
+  .hero-meta,
+  .hero-baseline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .hero-coordinates {
+    color: var(--color-muted);
+    font-size: 0.65rem;
+    font-weight: 650;
+    letter-spacing: 0.16em;
+  }
+
+  .hero-coordinates span {
+    padding-inline: 0.3rem;
+    color: var(--color-accent);
+  }
+
+  .hero-main {
+    display: grid;
+    grid-template-columns: 1.03fr 0.97fr;
+    align-items: center;
+    gap: clamp(1rem, 4vw, 4.5rem);
+    padding-block: clamp(2rem, 5vw, 4rem) 1.7rem;
+  }
+
+  .hero-heading {
+    position: relative;
+    z-index: 1;
+  }
+
+  h1 {
+    display: grid;
+    margin: 0 0 2.25rem -0.07em;
+    font-family: var(--font-display);
+    font-size: clamp(6.1rem, 13vw, 11.5rem);
+    font-weight: 500;
+    letter-spacing: -0.105em;
+    line-height: 0.72;
+  }
+
+  h1 > span + span {
+    margin-top: 0.1em;
+  }
+
+  .hero-period {
+    color: var(--color-accent);
+  }
+
+  .hero-intro {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.8rem;
+    padding-left: clamp(0rem, 1vw, 1rem);
+  }
+
+  .hero-intro p {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 2vw, 1.65rem);
+    line-height: 1.23;
+  }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid var(--color-accent);
+    color: var(--color-accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .text-link span,
+  .destination-arrow,
+  .round-link span {
+    transition: transform var(--transition-quick);
+  }
+
+  .text-link:hover span {
+    transform: translate(2px, 2px);
+  }
+
+  .hero .atlas-artwork {
+    width: 100%;
+    max-width: 36rem;
+    justify-self: end;
+    transform: rotate(-5deg);
+    animation: map-arrive 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .hero-baseline {
+    min-height: 3.5rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .hero-baseline p,
+  .scroll-cue {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.75rem;
+  }
+
+  .scroll-cue {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+  }
+
+  .scroll-cue span + span {
+    color: var(--color-accent);
+    font-size: 1.1rem;
+    transition: transform var(--transition-quick);
+  }
+
+  .scroll-cue:hover span + span {
+    transform: translateY(3px);
+  }
+
+  .explore-section {
+    padding-block: clamp(5rem, 10vw, 9rem);
+    background: var(--color-paper-deep);
+  }
+
+  .section-heading {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    gap: 1rem 3rem;
+    margin-bottom: clamp(2rem, 5vw, 4rem);
+  }
+
+  .section-heading .section-kicker {
+    grid-column: 1 / -1;
+  }
+
+  .section-heading h2,
+  .news-heading h2,
+  .closing-layout h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.7rem, 6.6vw, 5.6rem);
+    font-weight: 500;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+  }
+
+  h2 em {
+    color: var(--color-accent);
+    font-weight: 400;
+  }
+
+  .section-heading > p {
+    max-width: 18rem;
+    margin: 0 0 0.35rem;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+  }
+
+  .discovery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    align-items: start;
+    gap: 1rem;
+  }
+
+  .news-section {
+    padding-block: clamp(5rem, 10vw, 9rem);
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .news-heading {
+    display: grid;
+    grid-template-columns: 1fr minmax(16rem, 0.7fr);
+    align-items: end;
+    gap: 2rem;
+  }
+
+  .news-heading .section-kicker {
+    margin-bottom: 2rem;
+    color: #d0cdc4;
+  }
+
+  .news-heading h2 {
+    font-size: clamp(2.7rem, 5.5vw, 5rem);
+  }
+
+  .news-heading h2 em {
+    color: #e4ad91;
+  }
+
+  .news-heading > p {
+    max-width: 28rem;
+    margin: 0 0 0.35rem;
+    color: #d0cdc4;
+    font-size: 0.92rem;
+  }
+
+  .news-placeholder-note {
+    margin: 3rem 0 0.8rem;
+    color: #d0cdc4;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr 1fr;
+    align-items: start;
+    gap: 1rem;
+  }
+
+  .article-grid > :nth-child(2) {
+    margin-top: 2rem;
+  }
+
+  .article-grid > :nth-child(3) {
+    margin-top: 0.8rem;
+  }
+
+  .secondary-topic {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    margin: 2rem 0 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-line);
+    color: var(--color-muted);
+    font-size: 0.75rem;
+  }
+
+  .secondary-topic strong {
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .secondary-topic span:first-child {
+    color: var(--color-accent);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .closing-section {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(5rem, 10vw, 9rem);
+    background: var(--color-lilac);
+  }
+
+  .closing-layout {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 1.4rem 2rem;
+  }
+
+  .closing-layout .section-kicker {
+    grid-column: 1 / -1;
+  }
+
+  .closing-layout h2 {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(3.2rem, 8vw, 7rem);
+  }
+
+  .closing-layout h2 em {
+    color: var(--color-accent);
+  }
+
+  .closing-layout > p {
+    grid-column: 1;
+    margin: 0.5rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.85rem;
+  }
+
+  .round-link {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: clamp(3.5rem, 7vw, 5.5rem);
+    aspect-ratio: 1;
+    place-items: center;
+    border: 1px solid var(--color-ink);
+    border-radius: 50%;
+    text-decoration: none;
+  }
+
+  .round-link span {
+    font-size: 1.5rem;
+  }
+
+  .round-link:hover span {
+    transform: translate(3px, -3px);
+  }
+
+  .closing-orbit {
+    position: absolute;
+    top: -8rem;
+    right: 4rem;
+    width: clamp(15rem, 34vw, 27rem);
+    aspect-ratio: 1;
+    border: 1px solid rgb(36 37 31 / 12%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .closing-orbit::before,
+  .closing-orbit::after {
+    position: absolute;
+    inset: 12%;
+    border: 1px dashed rgb(36 37 31 / 16%);
+    border-radius: 50%;
+    content: '';
+  }
+
+  .closing-orbit::after {
+    inset: 27%;
+    border-style: solid;
+  }
+
+  @keyframes map-arrive {
+    from {
+      opacity: 0;
+      transform: rotate(-2deg) translateY(0.8rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: rotate(-5deg) translateY(0);
+    }
+  }
+
+  @media (max-width: 58rem) {
+    h1 {
+      font-size: clamp(5.5rem, 14vw, 8rem);
+    }
+
+    .hero-intro {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .article-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .article-grid > :nth-child(2), .article-grid > :nth-child(3) { margin-top: 0; }
+  }
+
+  @media (max-width: 42rem) {
+    .hero {
+      padding-top: 2rem;
+    }
+
+    .hero-meta {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .hero-main {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding-block: 2.2rem 1rem;
+    }
+
+    h1 {
+      margin-bottom: 1.6rem;
+      font-size: clamp(5.4rem, 23vw, 8.2rem);
+    }
+
+    .hero-intro {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .hero-intro p {
+      font-size: 1.25rem;
+    }
+
+    .text-link {
+      font-size: 0.69rem;
+    }
+
+    .hero .atlas-artwork {
+      width: min(100%, 25rem);
+      justify-self: center;
+    }
+
+    .hero-baseline {
+      align-items: flex-start;
+      padding-top: 0.8rem;
+    }
+
+    .hero-baseline p {
+      max-width: 17rem;
+    }
+
+    .scroll-cue span:first-child {
+      display: none;
+    }
+
+    .section-heading {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+
+    .section-heading .section-kicker {
+      grid-column: auto;
+    }
+
+    .section-heading h2,
+    .news-heading h2 {
+      font-size: clamp(2.8rem, 12vw, 4.3rem);
+    }
+
+    .news-heading { grid-template-columns: 1fr; gap: 1.2rem; }
+    .article-grid { grid-template-columns: 1fr; }
+
+    .closing-layout {
+      grid-template-columns: 1fr auto;
+      gap: 1.2rem 0.8rem;
+    }
+
+    .closing-layout h2 {
+      font-size: clamp(3rem, 13vw, 5rem);
+    }
+
+    .round-link {
+      align-self: center;
+    }
+
+    .closing-orbit {
+      top: -4rem;
+      right: -10rem;
+    }
+  }
+
+  @media (max-width: 24rem) {
+    .hero-intro {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .hero-baseline p {
+      max-width: 13rem;
+    }
+
+    .closing-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .closing-layout .section-kicker,
+    .closing-layout > p {
+      grid-column: 1;
+    }
+
+    .round-link {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+  }
+</style>

@@ -1,0 +1,260 @@
+---
+interface Props {
+  index: string;
+  category: string;
+  dateLabel: string;
+  title: string;
+  summary: string;
+  illustration: 'landscape' | 'ornament' | 'constellation';
+  href?: string;
+}
+
+const { index, category, dateLabel, title, summary, illustration, href } = Astro.props;
+const titleId = `news-preview-${index}`;
+---
+
+<article class={`news-preview news-preview--${illustration}`} aria-labelledby={titleId}>
+  <div class={`news-illustration news-illustration--${illustration}`} aria-hidden="true">
+    <span class="illustration-index">N° {index}</span>
+    {illustration === 'landscape' && (
+      <svg viewBox="0 0 360 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="270" cy="51" r="27" class="sun" />
+        <path d="M0 132C48 117 65 80 109 87C149 94 157 124 197 115C233 107 247 69 293 83C321 91 338 111 360 108V190H0V132Z" class="hill hill-back" />
+        <path d="M0 157C43 145 72 120 109 129C147 138 164 165 209 155C257 145 270 112 310 124C333 131 345 147 360 145V190H0V157Z" class="hill hill-front" />
+        <path d="M160 190C164 165 181 151 201 145C218 139 225 128 224 113" class="land-path" />
+        <path d="M62 71L68 83L81 85L71 94L73 108L62 101L50 108L54 94L44 85L58 83L62 71Z" class="land-star" />
+      </svg>
+    )}
+    {illustration === 'ornament' && (
+      <svg viewBox="0 0 360 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="180" cy="95" r="69" class="ornament-ring" />
+        <circle cx="180" cy="95" r="47" class="ornament-ring ornament-ring--inner" />
+        <path d="M180 26C201 51 207 70 180 95C153 70 159 51 180 26Z" class="ornament-petal" />
+        <path d="M249 95C224 116 205 122 180 95C205 68 224 74 249 95Z" class="ornament-petal ornament-petal--alt" />
+        <path d="M180 164C159 139 153 120 180 95C207 120 201 139 180 164Z" class="ornament-petal" />
+        <path d="M111 95C136 74 155 68 180 95C155 122 136 116 111 95Z" class="ornament-petal ornament-petal--alt" />
+        <circle cx="180" cy="95" r="8" class="ornament-core" />
+        <path d="M52 43L56 53L67 55L59 62L61 73L52 67L42 73L46 62L38 55L49 53L52 43Z" class="ornament-star" />
+      </svg>
+    )}
+    {illustration === 'constellation' && (
+      <svg viewBox="0 0 360 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M62 133L112 74L167 108L223 49L295 105" class="constellation-line" />
+        <circle cx="62" cy="133" r="5" class="constellation-dot" />
+        <circle cx="112" cy="74" r="7" class="constellation-dot constellation-dot--large" />
+        <circle cx="167" cy="108" r="4" class="constellation-dot" />
+        <circle cx="223" cy="49" r="6" class="constellation-dot constellation-dot--large" />
+        <circle cx="295" cy="105" r="4" class="constellation-dot" />
+        <path d="M263 139L269 151L282 153L272 162L274 175L263 168L251 175L255 162L245 153L259 151L263 139Z" class="constellation-star" />
+        <path d="M76 41L80 50L90 52L83 59L84 69L76 64L67 69L70 59L63 52L73 50L76 41Z" class="constellation-star constellation-star--small" />
+      </svg>
+    )}
+  </div>
+
+  <div class="news-preview-copy">
+    <div class="news-preview-meta">
+      <span>{category}</span>
+      <span>{dateLabel}</span>
+    </div>
+    <h3 id={titleId}>
+      {href ? <a href={href}>{title}</a> : title}
+    </h3>
+    <p>{summary}</p>
+    {href ? (
+      <a class="article-link" href={href}>Lire l’article <span aria-hidden="true">↗</span></a>
+    ) : (
+      <span class="article-placeholder">Article à venir</span>
+    )}
+  </div>
+</article>
+
+<style>
+  .news-preview {
+    min-width: 0;
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  .news-illustration {
+    position: relative;
+    display: grid;
+    aspect-ratio: 1.65;
+    place-items: center;
+    overflow: hidden;
+    background: var(--color-sage);
+  }
+
+  .news-illustration--landscape {
+    background: #e2e7d8;
+  }
+
+  .news-illustration--ornament {
+    background: #ecd8cd;
+  }
+
+  .news-illustration--constellation {
+    background: #e8e3ef;
+  }
+
+  .news-illustration svg {
+    width: 100%;
+    height: 100%;
+    transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .news-preview:hover .news-illustration svg {
+    transform: scale(1.04) rotate(-1deg);
+  }
+
+  .illustration-index {
+    position: absolute;
+    z-index: 1;
+    top: 0.8rem;
+    left: 0.85rem;
+    padding: 0.25rem 0.45rem;
+    border: 1px solid rgb(36 37 31 / 30%);
+    border-radius: var(--radius-pill);
+    background: rgb(245 242 234 / 72%);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .sun {
+    fill: #f0d98a;
+    stroke: var(--color-ink);
+    stroke-width: 1.2;
+  }
+
+  .hill-back {
+    fill: #b8c5ad;
+  }
+
+  .hill-front {
+    fill: #859a80;
+  }
+
+  .land-path {
+    stroke: var(--color-paper);
+    stroke-linecap: round;
+    stroke-width: 3;
+  }
+
+  .land-star,
+  .ornament-star,
+  .constellation-star {
+    fill: var(--color-accent);
+  }
+
+  .ornament-ring {
+    stroke: rgb(36 37 31 / 55%);
+    stroke-width: 1.2;
+  }
+
+  .ornament-ring--inner {
+    stroke-dasharray: 2 5;
+  }
+
+  .ornament-petal {
+    fill: #f5f2ea;
+    stroke: var(--color-ink);
+    stroke-width: 1.2;
+  }
+
+  .ornament-petal--alt {
+    fill: #d49d87;
+  }
+
+  .ornament-core {
+    fill: var(--color-accent);
+  }
+
+  .constellation-line {
+    stroke: rgb(36 37 31 / 55%);
+    stroke-dasharray: 2 6;
+    stroke-width: 1.4;
+  }
+
+  .constellation-dot {
+    fill: var(--color-ink);
+  }
+
+  .constellation-dot--large {
+    fill: var(--color-accent);
+  }
+
+  .constellation-star--small {
+    fill: #f0d98a;
+  }
+
+  .news-preview-copy {
+    padding: 1.1rem 1.2rem 1.3rem;
+  }
+
+  .news-preview-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.4rem 1rem;
+    color: var(--color-muted);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .news-preview-meta span:first-child {
+    color: var(--color-accent);
+  }
+
+  h3 {
+    margin: 0.75rem 0 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2vw, 1.75rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+  }
+
+  h3 a {
+    text-decoration: none;
+  }
+
+  .news-preview-copy > p {
+    min-height: 3.2em;
+    margin: 0.65rem 0 1.1rem;
+    color: var(--color-muted);
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  .article-link,
+  .article-placeholder {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid var(--color-accent);
+    color: var(--color-ink);
+    font-size: 0.66rem;
+    font-weight: 750;
+    letter-spacing: 0.07em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .article-link span {
+    color: var(--color-accent);
+  }
+
+  .article-placeholder {
+    border-bottom-style: dashed;
+    color: var(--color-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .news-illustration svg {
+      transition: none;
+    }
+  }
+</style>

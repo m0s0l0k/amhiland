@@ -1,0 +1,243 @@
+<figure class="atlas-artwork" aria-hidden="true">
+  <span class="artwork-note note-top">Atlas no. 01 <span>—</span> imaginaires en mouvement</span>
+  <span class="artwork-sticker">Psst ! par ici <span aria-hidden="true">↗</span></span>
+  <svg viewBox="0 0 600 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="310" cy="280" r="205" class="orbit orbit-outer" />
+    <circle cx="310" cy="280" r="160" class="orbit orbit-middle" />
+    <circle cx="310" cy="280" r="105" class="orbit orbit-inner" />
+    <path d="M78 359C149 343 160 278 222 275C283 272 290 354 354 339C417 324 411 226 520 191" class="route route-main" />
+    <path d="M144 138C223 180 233 201 272 259C321 332 377 370 469 409" class="route route-secondary" />
+    <path d="M112 435C171 397 200 401 253 418C326 442 392 431 480 364" class="route route-tertiary" />
+    <circle cx="222" cy="275" r="10" class="marker marker-soft" />
+    <circle cx="354" cy="339" r="13" class="marker marker-main" />
+    <circle cx="354" cy="339" r="4" class="marker marker-core" />
+    <circle cx="469" cy="409" r="7" class="marker marker-soft" />
+    <path d="M310 44V73M310 487V516M74 280H103M517 280H546" class="crosshair" />
+    <path d="M310 246L318 274L346 282L318 290L310 318L302 290L274 282L302 274L310 246Z" class="north-mark" />
+    <circle cx="144" cy="138" r="4" class="star" />
+    <circle cx="480" cy="364" r="4" class="star" />
+    <circle cx="112" cy="435" r="3" class="star star-small" />
+    <path d="M410 133L400 125M489 169L501 164M411 213L402 220" class="scout-rays" />
+    <path d="M427 157C419 144 424 131 433 125M454 158C463 147 474 146 480 151" class="scout-antenna" />
+    <path d="M423 177C425 164 437 157 448 159C459 157 471 165 473 177C484 183 484 197 475 203C467 214 453 215 445 210C433 215 420 207 420 198C412 192 415 181 423 177Z" class="scout-body" />
+    <path d="M420 185C409 179 404 185 409 192M474 185C485 178 491 185 485 192" class="scout-arm" />
+    <circle cx="435" cy="184" r="2.7" class="scout-eye" />
+    <circle cx="454" cy="184" r="2.7" class="scout-eye" />
+    <path d="M439 193C443 197 448 197 451 192" class="scout-mouth" />
+    <path d="M432 209L429 216M461 210L464 216" class="scout-foot" />
+    <circle cx="428" cy="191" r="2.4" class="scout-blush" />
+    <circle cx="462" cy="191" r="2.4" class="scout-blush" />
+  </svg>
+  <span class="artwork-note note-bottom">Cap <span>·</span> vers l’inconnu</span>
+</figure>
+
+<style>
+  .atlas-artwork {
+    position: relative;
+    display: grid;
+    min-width: 0;
+    aspect-ratio: 1 / 0.94;
+    margin: 0;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 50%;
+    background:
+      radial-gradient(ellipse at 54% 46%, rgb(255 255 255 / 74%), transparent 57%),
+      var(--color-sage);
+  }
+
+  svg {
+    width: min(100%, 37rem);
+    overflow: visible;
+  }
+
+  .orbit {
+    stroke: rgb(36 37 31 / 18%);
+    stroke-width: 1;
+  }
+
+  .orbit-middle {
+    stroke-dasharray: 1 7;
+  }
+
+  .orbit-inner {
+    stroke: rgb(168 71 45 / 24%);
+  }
+
+  .route {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .route-main {
+    stroke: var(--color-accent);
+    stroke-width: 2.5;
+  }
+
+  .route-secondary,
+  .route-tertiary {
+    stroke: rgb(36 37 31 / 40%);
+    stroke-dasharray: 2 8;
+    stroke-width: 1.5;
+  }
+
+  .marker-soft {
+    fill: var(--color-paper);
+    stroke: var(--color-ink);
+    stroke-width: 1.5;
+  }
+
+  .marker-main {
+    fill: var(--color-accent);
+    stroke: var(--color-paper);
+    stroke-width: 5;
+  }
+
+  .marker-core {
+    fill: var(--color-paper);
+  }
+
+  .crosshair {
+    stroke: rgb(36 37 31 / 45%);
+    stroke-width: 1;
+  }
+
+  .north-mark {
+    fill: var(--color-accent-soft);
+    stroke: var(--color-accent);
+    stroke-width: 1;
+  }
+
+  .star {
+    fill: var(--color-accent);
+  }
+
+  .star-small {
+    fill: var(--color-ink);
+  }
+
+  .artwork-note {
+    position: absolute;
+    z-index: 1;
+    color: var(--color-muted);
+    font-size: clamp(0.55rem, 1vw, 0.68rem);
+    font-weight: 650;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .artwork-note span {
+    padding-inline: 0.25rem;
+    color: var(--color-accent);
+  }
+
+  .artwork-sticker {
+    position: absolute;
+    z-index: 2;
+    top: 30%;
+    left: 17%;
+    padding: 0.45rem 0.7rem;
+    transform: rotate(-4deg);
+    border: 1px solid var(--color-ink);
+    border-radius: 0.15rem 0.7rem 0.15rem 0.7rem;
+    background: var(--color-butter);
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+    font-style: italic;
+    white-space: nowrap;
+  }
+
+  .artwork-sticker::after {
+    position: absolute;
+    right: 0.8rem;
+    bottom: -0.36rem;
+    width: 0.6rem;
+    aspect-ratio: 1;
+    transform: rotate(45deg);
+    border-right: 1px solid var(--color-ink);
+    border-bottom: 1px solid var(--color-ink);
+    background: var(--color-butter);
+    content: '';
+  }
+
+  .artwork-sticker span {
+    display: inline-block;
+    margin-left: 0.25rem;
+    color: var(--color-accent);
+    font-family: var(--font-body);
+    font-style: normal;
+    transition: transform var(--transition-quick);
+  }
+
+  .atlas-artwork:hover .artwork-sticker span {
+    transform: translate(-2px, 2px);
+  }
+
+  .scout-rays {
+    stroke: var(--color-accent);
+    stroke-linecap: round;
+    stroke-width: 2.5;
+  }
+
+  .scout-antenna,
+  .scout-arm,
+  .scout-mouth,
+  .scout-foot {
+    stroke: var(--color-ink);
+    stroke-linecap: round;
+    stroke-width: 2;
+  }
+
+  .scout-body {
+    fill: var(--color-butter);
+    stroke: var(--color-ink);
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+
+  .scout-eye {
+    fill: var(--color-ink);
+  }
+
+  .scout-blush {
+    fill: var(--color-accent-soft);
+  }
+
+  .note-top {
+    top: 13%;
+    left: 17%;
+  }
+
+  .note-bottom {
+    left: 20%;
+    bottom: 13%;
+  }
+
+  @media (max-width: 36rem) {
+    .atlas-artwork {
+      aspect-ratio: 1;
+    }
+
+    .note-top {
+      top: 12%;
+      left: 15%;
+    }
+
+    .note-bottom {
+      left: 17%;
+      bottom: 12%;
+    }
+
+    .artwork-sticker {
+      top: 30%;
+      left: 16%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .artwork-sticker span {
+      transition: none;
+    }
+  }
+</style>

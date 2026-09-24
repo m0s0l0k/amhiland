@@ -1,18 +1,23 @@
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* Temporary neutral tokens: replace these when the visual identity is approved. */
-  --color-page: #15171a;
-  --color-surface: #202328;
-  --color-text: #f3f4f6;
-  --color-muted: #b7bdc6;
-  --color-accent: #8fc7bd;
-  --color-border: #3b414a;
+  --color-paper: #f5f2ea;
+  --color-paper-deep: #ebe6da;
+  --color-ink: #24251f;
+  --color-muted: #625f56;
+  --color-line: #d5d0c4;
+  --color-accent: #a8472d;
+  --color-accent-soft: #e9c9b9;
+  --color-butter: #f0e5b9;
+  --color-sage: #dce4d6;
+  --color-lilac: #e8e3ef;
 
-  --font-body: system-ui, sans-serif;
-  --font-heading: system-ui, sans-serif;
+  --font-body: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
 
-  --content-width: 68rem;
+  --content-width: 76rem;
+  --reading-width: 44rem;
   --space-unit: 1rem;
-  --radius-small: 0.4rem;
+  --radius-pill: 999px;
+  --transition-quick: 180ms ease;
 }

@@ -17,31 +17,15 @@ const { title, description } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#15171a" />
+    <meta name="theme-color" content="#f5f2ea" />
     <title>{title} | Amhiland</title>
   </head>
   <body>
     <a class="skip-link" href="#contenu">Aller au contenu</a>
     <SiteHeader />
-    <main id="contenu" class="container page-content">
+    <main id="contenu" class="page-content">
       <slot />
     </main>
     <SiteFooter />
   </body>
 </html>
-
-<style>
-  .skip-link {
-    position: absolute;
-    z-index: 1;
-    top: 0.5rem;
-    left: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    transform: translateY(-160%);
-    background: var(--color-surface);
-  }
-
-  .skip-link:focus {
-    transform: translateY(0);
-  }
-</style>

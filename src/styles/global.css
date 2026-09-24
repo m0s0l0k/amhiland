@@ -7,8 +7,9 @@
 }
 
 html {
-  background: var(--color-page);
-  color: var(--color-text);
+  scroll-behavior: smooth;
+  background: var(--color-paper);
+  color: var(--color-ink);
   font-family: var(--font-body);
   line-height: 1.6;
   text-size-adjust: 100%;
@@ -20,14 +21,21 @@ body {
   margin: 0;
 }
 
+body,
+button,
 a {
-  color: var(--color-accent);
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
   text-underline-offset: 0.2em;
 }
 
-a:focus-visible {
+a:focus-visible,
+summary:focus-visible {
   outline: 2px solid var(--color-accent);
-  outline-offset: 0.2rem;
+  outline-offset: 4px;
 }
 
 img,
@@ -35,21 +43,90 @@ svg {
   max-width: 100%;
 }
 
+button,
+a {
+  touch-action: manipulation;
+}
+
 .container {
-  width: min(calc(100% - 2rem), var(--content-width));
+  width: min(calc(100% - 2.5rem), var(--content-width));
   margin-inline: auto;
+}
+
+.reading-width {
+  max-width: var(--reading-width);
 }
 
 .page-content {
   min-height: 65vh;
-  padding-block: clamp(3rem, 8vw, 6rem);
+  padding-block: 0;
 }
 
-.eyebrow {
+.simple-page {
+  padding-block: clamp(4rem, 10vw, 8rem);
+}
+
+.simple-page h1 {
+  max-width: 13ch;
+  margin: 0.25em 0 0.55em;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+
+.simple-page p:not(.eyebrow) {
+  max-width: var(--reading-width);
   color: var(--color-muted);
-  font-size: 0.875rem;
-  letter-spacing: 0.08em;
+  font-size: 1.05rem;
+}
+
+.eyebrow,
+.section-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  line-height: 1.4;
   text-transform: uppercase;
+}
+
+.section-kicker > span:first-child:not(:last-child) {
+  color: var(--color-accent);
+}
+
+.section-kicker::before {
+  width: 1.5rem;
+  height: 1px;
+  background: currentColor;
+  content: '';
+}
+
+.skip-link {
+  position: absolute;
+  z-index: 20;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  transform: translateY(-160%);
+  border-radius: 0.25rem;
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+@media (max-width: 38rem) {
+  .container {
+    width: min(calc(100% - 2rem), var(--content-width));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

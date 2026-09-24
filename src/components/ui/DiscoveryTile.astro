@@ -1,0 +1,364 @@
+---
+interface Props {
+  index: string;
+  label: string;
+  title: string;
+  description: string;
+  variant: 'news' | 'quiz' | 'test' | 'analysis';
+  id?: string;
+  href?: string;
+  status?: string;
+}
+
+const { index, label, title, description, variant, id, href, status } = Astro.props;
+const headingId = `discovery-${variant}-title`;
+---
+
+<article class={`discovery-tile discovery-tile--${variant}`} id={id} aria-labelledby={headingId}>
+  <div class="tile-copy">
+    <p class="tile-kicker"><span>{index}</span><span>{label}</span></p>
+    <h3 id={headingId}>{title}</h3>
+    <p class="tile-description">{description}</p>
+    {href ? (
+      <a class="tile-action" href={href}>Voir l’espace <span aria-hidden="true">↗</span></a>
+    ) : (
+      <span class="tile-action tile-status">{status ?? 'À venir'}</span>
+    )}
+  </div>
+
+  <div class={`tile-art tile-art--${variant}`} aria-hidden="true">
+    {variant === 'news' && (
+      <svg viewBox="0 0 220 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 29L174 19L185 147L51 159L40 29Z" class="news-page" />
+        <path d="M58 52L150 45M60 67L162 59M62 83L130 77" class="news-ink" />
+        <path d="M130 112L137 91L144 112L164 119L144 126L137 147L130 126L110 119L130 112Z" class="news-star" />
+        <path d="M37 44L25 37M37 59L20 58M188 41L199 34M191 57L205 55" class="news-rays" />
+        <circle cx="78" cy="120" r="4" class="news-dot" />
+        <circle cx="91" cy="118" r="2" class="news-dot" />
+      </svg>
+    )}
+    {variant === 'quiz' && (
+      <svg viewBox="0 0 220 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M44 57C55 36 81 29 100 38C121 48 128 71 118 88C111 100 96 106 89 120" class="quiz-mark" />
+        <circle cx="87" cy="145" r="5" class="quiz-dot" />
+        <path d="M141 44L155 34M151 67L171 62M151 92L173 95M49 128L31 139" class="quiz-rays" />
+        <path d="M30 38L34 47L44 49L36 55L37 65L29 59L20 64L24 54L17 46L28 47L30 38Z" class="quiz-spark" />
+      </svg>
+    )}
+    {variant === 'test' && (
+      <svg viewBox="0 0 220 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="115" cy="97" rx="75" ry="31" transform="rotate(-23 115 97)" class="test-orbit" />
+        <ellipse cx="115" cy="97" rx="47" ry="76" transform="rotate(28 115 97)" class="test-orbit test-orbit--thin" />
+        <circle cx="115" cy="97" r="18" class="test-core" />
+        <circle cx="181" cy="67" r="6" class="test-star" />
+        <circle cx="64" cy="133" r="4" class="test-star test-star--small" />
+        <path d="M32 68L37 79L49 81L40 89L42 101L32 95L21 101L25 89L17 80L29 79L32 68Z" class="test-spark" />
+      </svg>
+    )}
+    {variant === 'analysis' && (
+      <svg viewBox="0 0 220 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M37 42C66 35 91 42 109 56V148C88 133 63 130 38 138L37 42Z" class="book-page" />
+        <path d="M109 56C130 41 156 37 184 45L181 140C154 134 131 136 109 148V56Z" class="book-page book-page--right" />
+        <path d="M52 64L92 65M53 79L94 81M54 94L86 96M126 65L166 60M125 81L164 77M124 97L158 94" class="book-lines" />
+        <path d="M105 52L111 56V148L105 144V52Z" class="book-spine" />
+        <path d="M174 26L180 37L193 38L183 46L185 59L174 52L163 58L166 46L157 37L170 36L174 26Z" class="book-star" />
+      </svg>
+    )}
+  </div>
+  <span class="tile-corner-mark" aria-hidden="true">✳</span>
+</article>
+
+<style>
+  .discovery-tile {
+    position: relative;
+    display: grid;
+    min-height: 17rem;
+    grid-template-columns: minmax(0, 1fr) minmax(8rem, 0.75fr);
+    align-items: center;
+    gap: 0.5rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid rgb(36 37 31 / 8%);
+    border-radius: 0.2rem 1.3rem 0.2rem 1.3rem;
+    color: var(--color-ink);
+  }
+
+  .discovery-tile--news {
+    grid-column: span 7;
+    min-height: 20rem;
+    background: var(--color-accent-soft);
+  }
+
+  .discovery-tile--quiz {
+    grid-column: span 5;
+    background: var(--color-butter);
+    transform: translateY(1.5rem);
+  }
+
+  .discovery-tile--test {
+    grid-column: span 5;
+    background: var(--color-lilac);
+  }
+
+  .discovery-tile--analysis {
+    grid-column: span 7;
+    min-height: 19rem;
+    background: var(--color-sage);
+    transform: translateY(-1rem);
+  }
+
+  .tile-copy {
+    position: relative;
+    z-index: 1;
+  }
+
+  .tile-kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0 0 1.3rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .tile-kicker span:first-child {
+    color: var(--color-accent);
+  }
+
+  .tile-kicker span + span::before {
+    margin-right: 0.65rem;
+    color: rgb(36 37 31 / 45%);
+    content: '/';
+  }
+
+  h3 {
+    max-width: 12ch;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.6vw, 3rem);
+    font-weight: 500;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+  }
+
+  .tile-description {
+    max-width: 22rem;
+    margin: 0.8rem 0 1.4rem;
+    color: #4e4c45;
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .tile-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding-bottom: 0.2rem;
+    border: 0;
+    border-bottom: 1px solid var(--color-ink);
+    background: none;
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 750;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  a.tile-action span {
+    color: var(--color-accent);
+    transition: transform var(--transition-quick);
+  }
+
+  a.tile-action:hover span {
+    transform: translate(3px, -3px);
+  }
+
+  .tile-status {
+    border-bottom-style: dashed;
+    color: #57534c;
+  }
+
+  .tile-art {
+    position: relative;
+    display: grid;
+    min-width: 0;
+    aspect-ratio: 1;
+    place-items: center;
+  }
+
+  .tile-art svg {
+    width: 100%;
+    overflow: visible;
+    transition: transform 260ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .discovery-tile:hover .tile-art svg {
+    transform: rotate(-4deg) scale(1.035);
+  }
+
+  .tile-art--news {
+    transform: rotate(3deg);
+  }
+
+  .news-page {
+    fill: #f7eee4;
+    stroke: var(--color-ink);
+    stroke-width: 2;
+  }
+
+  .news-ink,
+  .news-rays {
+    stroke: var(--color-ink);
+    stroke-linecap: round;
+    stroke-width: 2;
+  }
+
+  .news-star,
+  .news-dot {
+    fill: var(--color-accent);
+  }
+
+  .quiz-mark {
+    stroke: var(--color-ink);
+    stroke-linecap: round;
+    stroke-width: 12;
+  }
+
+  .quiz-dot {
+    fill: var(--color-accent);
+  }
+
+  .quiz-rays {
+    stroke: var(--color-accent);
+    stroke-linecap: round;
+    stroke-width: 2.5;
+  }
+
+  .quiz-spark,
+  .test-spark,
+  .test-star {
+    fill: var(--color-accent);
+  }
+
+  .test-orbit {
+    stroke: var(--color-ink);
+    stroke-dasharray: 2 6;
+    stroke-width: 1.5;
+  }
+
+  .test-orbit--thin {
+    stroke: rgb(36 37 31 / 38%);
+  }
+
+  .test-core {
+    fill: var(--color-accent-soft);
+    stroke: var(--color-ink);
+    stroke-width: 1.5;
+  }
+
+  .test-star--small {
+    fill: var(--color-ink);
+  }
+
+  .book-page {
+    fill: #f3f4e9;
+    stroke: var(--color-ink);
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+
+  .book-page--right {
+    fill: #e9eee0;
+  }
+
+  .book-lines,
+  .book-spine {
+    stroke: var(--color-ink);
+    stroke-linecap: round;
+    stroke-width: 1.5;
+  }
+
+  .book-star {
+    fill: var(--color-butter);
+    stroke: var(--color-accent);
+    stroke-width: 1.5;
+  }
+
+  .tile-corner-mark {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: rgb(36 37 31 / 42%);
+    font-size: 0.9rem;
+  }
+
+  .discovery-tile--news .tile-corner-mark {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 55rem) {
+    .discovery-tile--news,
+    .discovery-tile--analysis {
+      grid-column: span 6;
+    }
+
+    .discovery-tile--quiz,
+    .discovery-tile--test {
+      grid-column: span 6;
+      transform: none;
+    }
+
+    .discovery-tile {
+      grid-template-columns: 1fr;
+      align-content: space-between;
+    }
+
+    .tile-art {
+      position: absolute;
+      right: -0.8rem;
+      bottom: -0.8rem;
+      width: 47%;
+      opacity: 0.82;
+    }
+
+    .tile-copy {
+      max-width: 85%;
+    }
+  }
+
+  @media (max-width: 38rem) {
+    .discovery-tile,
+    .discovery-tile--news,
+    .discovery-tile--quiz,
+    .discovery-tile--test,
+    .discovery-tile--analysis {
+      grid-column: 1 / -1;
+      min-height: 16rem;
+    }
+
+    .discovery-tile--news,
+    .discovery-tile--analysis {
+      min-height: 18rem;
+    }
+
+    .tile-copy {
+      max-width: 78%;
+    }
+
+    h3 {
+      font-size: clamp(1.85rem, 8vw, 2.5rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tile-art svg,
+    a.tile-action span {
+      transition: none;
+    }
+  }
+</style>

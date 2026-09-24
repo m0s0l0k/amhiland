@@ -1,0 +1,13 @@
+---
+interface Props {
+  label: string;
+  index?: string;
+}
+
+const { label, index } = Astro.props;
+---
+
+<p class="section-kicker">
+  {index && <span>{index}</span>}
+  <span>{label}</span>
+</p>
