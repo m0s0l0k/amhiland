@@ -1,0 +1,78 @@
+---
+import NewsPreview from '../../components/content/NewsPreview.astro';
+import SectionKicker from '../../components/ui/SectionKicker.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatNewsDate, getNewsEntries, resolveNewsIllustration, sortNewsByPublishedAt } from '../../lib/news';
+
+const articles = sortNewsByPublishedAt(await getNewsEntries());
+---
+
+<BaseLayout
+  title="Actualités"
+  description="Actualités Hunter × Hunter, JoJo et anime & manga sur Amhiland."
+>
+  <section class="news-index container" aria-labelledby="news-title">
+    <SectionKicker index="01" label="Le fil des univers" />
+    <h1 id="news-title">Actualités<br /><em>anime &amp; manga.</em></h1>
+    <p class="news-intro">Annonces et nouveautés autour de Hunter × Hunter, JoJo et d’autres séries.</p>
+    <div class="article-grid">
+      {articles.map((article, index) => (
+        <NewsPreview
+          index={String(index + 1).padStart(2, '0')}
+          category={article.data.category}
+          dateLabel={formatNewsDate(article.data.publishedAt)}
+          title={article.data.title}
+          summary={article.data.excerpt}
+          illustration={resolveNewsIllustration(article.data.category, article.data.illustration)}
+          demo={article.data.demo}
+          href={`/actualites/${article.data.slug}/`}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .news-index {
+    padding-block: clamp(4rem, 9vw, 7.5rem);
+  }
+
+  h1 {
+    margin: 2rem 0 0;
+    font-family: var(--font-display);
+    font-size: clamp(3.2rem, 8vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.06em;
+    line-height: 0.96;
+  }
+
+  h1 em {
+    color: var(--color-accent);
+    font-weight: 400;
+  }
+
+  .news-intro {
+    max-width: 34rem;
+    margin: 1.3rem 0 3rem;
+    color: var(--color-muted);
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: 1.2rem;
+  }
+
+  .article-grid > :nth-child(2) { margin-top: 2rem; }
+  .article-grid > :nth-child(3) { margin-top: 0.8rem; }
+
+  @media (max-width: 58rem) {
+    .article-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .article-grid > :nth-child(2), .article-grid > :nth-child(3) { margin-top: 0; }
+  }
+
+  @media (max-width: 40rem) {
+    .article-grid { grid-template-columns: 1fr; }
+  }
+</style>

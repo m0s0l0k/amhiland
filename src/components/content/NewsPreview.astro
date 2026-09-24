@@ -6,10 +6,11 @@ interface Props {
   title: string;
   summary: string;
   illustration: 'landscape' | 'ornament' | 'constellation';
+  demo?: boolean;
   href?: string;
 }
 
-const { index, category, dateLabel, title, summary, illustration, href } = Astro.props;
+const { index, category, dateLabel, title, summary, illustration, demo = false, href } = Astro.props;
 const titleId = `news-preview-${index}`;
 ---
 
@@ -56,6 +57,7 @@ const titleId = `news-preview-${index}`;
       <span>{category}</span>
       <span>{dateLabel}</span>
     </div>
+    {demo && <span class="demo-label">Exemple fictif</span>}
     <h3 id={titleId}>
       {href ? <a href={href}>{title}</a> : title}
     </h3>
@@ -205,6 +207,17 @@ const titleId = `news-preview-${index}`;
 
   .news-preview-meta span:first-child {
     color: var(--color-accent);
+  }
+
+  .demo-label {
+    display: inline-block;
+    margin-top: 0.7rem;
+    padding: 0.2rem 0.45rem;
+    background: var(--color-butter);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
   h3 {

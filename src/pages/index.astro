@@ -4,6 +4,9 @@ import DiscoveryTile from '../components/ui/DiscoveryTile.astro';
 import NewsPreview from '../components/content/NewsPreview.astro';
 import SectionKicker from '../components/ui/SectionKicker.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatNewsDate, getNewsEntries, resolveNewsIllustration, sortNewsByPublishedAt } from '../lib/news';
+
+const featuredArticles = sortNewsByPublishedAt((await getNewsEntries()).filter((article) => article.data.featured)).slice(0, 3);
 ---
 
 <BaseLayout
@@ -83,12 +86,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
           <p>Les annonces Hunter × Hunter, JoJo et d’autres séries trouveront ici leur place.</p>
         </div>
-        <p class="news-placeholder-note">Aperçus — contenu à venir</p>
+        <p class="news-placeholder-note">Exemples fictifs — rubrique en préparation</p>
         <div class="article-grid">
-          <NewsPreview index="01" category="Hunter × Hunter" dateLabel="Date à venir" title="Actualités Hunter × Hunter" summary="Les nouvelles de la série apparaîtront ici." illustration="landscape" />
-          <NewsPreview index="02" category="JoJo’s Bizarre Adventure" dateLabel="Date à venir" title="Actualités JoJo" summary="Les informations et annonces de la série prendront place ici." illustration="ornament" />
-          <NewsPreview index="03" category="Autres univers" dateLabel="Date à venir" title="Autres anime & manga" summary="Les actualités d’autres séries auront aussi leur place ici." illustration="constellation" />
+          {featuredArticles.map((article, index) => (
+            <NewsPreview
+              index={String(index + 1).padStart(2, '0')}
+              category={article.data.category}
+              dateLabel={formatNewsDate(article.data.publishedAt)}
+              title={article.data.title}
+              summary={article.data.excerpt}
+              illustration={resolveNewsIllustration(article.data.category, article.data.illustration)}
+              demo={article.data.demo}
+              href={`/actualites/${article.data.slug}/`}
+            />
+          ))}
         </div>
+        <a class="all-news-link" href="/actualites/">Toutes les actualités <span aria-hidden="true">↗</span></a>
       </div>
     </section>
 
@@ -340,6 +353,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .article-grid > :nth-child(3) {
     margin-top: 0.8rem;
   }
+
+  .all-news-link {
+    display: inline-flex;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    color: var(--color-paper);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration-color: #e4ad91;
+    text-underline-offset: 0.3em;
+  }
+
+  .all-news-link span { color: #e4ad91; }
 
   .secondary-topic {
     display: flex;
