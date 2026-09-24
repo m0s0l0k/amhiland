@@ -1,0 +1,18 @@
+:root {
+  color-scheme: dark;
+
+  /* Temporary neutral tokens: replace these when the visual identity is approved. */
+  --color-page: #15171a;
+  --color-surface: #202328;
+  --color-text: #f3f4f6;
+  --color-muted: #b7bdc6;
+  --color-accent: #8fc7bd;
+  --color-border: #3b414a;
+
+  --font-body: system-ui, sans-serif;
+  --font-heading: system-ui, sans-serif;
+
+  --content-width: 68rem;
+  --space-unit: 1rem;
+  --radius-small: 0.4rem;
+}
